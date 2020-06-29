@@ -1,1 +1,220 @@
-<html></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>高德地图</title>
+	<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=776812b4ecca0bf2f5af4660bf7987f9&plugin=AMap.ToolBar"></script>
+	<style type="text/css">
+		*{margin: 0;padding: 0;}
+		#container{width: 100%;height: 100%;position:absolute;left: 0;top: 0;}
+		#searchNode{width: 300px;height: 50px;z-index: 99;border: 1 px solid red;
+			position: absolute;right: 5px;top: 5px;}
+		#setNode{
+			width: 300px;position: absolute;z-index: 99;right: 20px;top: 50px;border: 1px solid black;box-shadow: 0 0 5px black;background: white;}
+		#panel{
+			position: fixed;width: 300px;background: white; top: 20px;right: 20px;
+		}
+		#search{position: absolute;top: 50px;left: 50px; background: white; width: 100px;}
+	</style>
+</head>
+<body>
+	<div id="container"></div>
+	<!-- <div id="panel"></div> -->
+	<!-- <div id="search">
+		起点：<input type="text" id="startNode">
+		终点：<input type="text" id="endNode">
+		<button id="btn">开始导航</button>
+	</div> -->
+	<!-- <div id="searchNode">
+		<input type="text" id="searchIpt">
+		<button id="btn">搜索</button>
+	</div> -->
+	<!-- <div id="setNode"></div> -->
+	<script type="text/javascript">
+		var map = new AMap.Map('container', {
+			center: [116.379391,39.861536],
+			zoom:17,
+			pitch:90
+		});
+
+
+		var count = 0;
+		var _onCount = function(){
+			console.log(count);
+		};
+
+		map.on('count', _onCount);
+		var _onclick = function(){
+			map.emit('count', {count: count ++});
+		};
+		
+		
+		AMap.event.addListener(map, 'click', _onclick);
+	/*	var contextmenu = new AMap.ContextMenu()
+		
+		contextmenu.addItem('放大一级', function(){
+			map.zoomIn();
+		}, 0)
+
+		contextmenu.addItem('缩小一级', function(){
+			map.zoomOut();
+		}, 1)
+
+		map.on('rightclick', function(e){
+			contextmenu.open(map, e.lnglat)
+		})*/
+
+		// map.addControl(new AMap.OverView());
+		/*new AMap.Transfer({
+			map: map,
+			panel: 'panel',
+			city: '北京'
+
+		}).search([
+			{keyword: '北京南站'},
+			{keyword: '北京站'}
+		], function(status, data){
+			console.log(data);
+		})
+*/
+		/*new AMap.TruckDriving({
+			map: map,
+			panel: 'panel',
+			city: '北京',
+			size: 1
+
+		}).search([{lnglat: [116.379391,39.861536]}, {lnglat: [116.979391,39.161536]}, {lnglat: [116.579391,40.861536]}], function(status, data){
+			console.log(data)
+		})*/
+	/*	var num = 0;
+		var arr = [];
+		map.on('click', function(e){
+			// console.log(e.lnglat.R);
+			console.log(e);
+			num++;
+			if(num%2 == 1){
+				arr = [e.lnglat.R, e.lnglat.Q]
+			}else{
+				new AMap.Driving({
+					map: map,
+					panel: panel
+				}).search(
+					new AMap.LngLat(arr[0], arr[1]),
+					new AMap.LngLat(e.lnglat.lng, e.lnglat.lat),
+					function(status, data){
+					console.log(data);
+				
+				})
+			}
+		})*/
+	/*	new AMap.Autocomplete({
+			input: startNode
+		})
+		new AMap.Autocomplete({
+			input: endNode
+		})
+		btn.onclick = function(){
+			new AMap.Driving({
+				map: map,
+				panel: panel
+			}).search([
+				{keyword: startNode.value, city: '北京'},
+				{keyword: endNode.value, city: '北京'}
+			].function(status, data){
+				return;
+			})
+		}*/
+		// new AMap.Driving({
+		// 	map: map,
+		// 	panel: 'panel'
+		// 	}).search([
+		// 		{keyword: '北京南站', city: '北京'},
+		// 		{keyword: '北京西站', city: '北京'}
+		// 	],function(status, data){
+		// 		console.log(data);
+		// 	})
+	/*	map.addControl(new AMap.ControlBar({
+			showZoomBar: true,
+			position:{
+				right: '500px',
+				top: '200px'
+			}
+		}))*/
+		
+		
+		/*map.on('click', function(e){
+			var marker = new AMap.Marker({
+			icon:'https://a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
+			position: [e.lnglat.lng, e.lnglat.lat],
+			offset: new AMap.pixel(-25, -25)
+			});
+			marker.setMap(map);
+		})
+*/
+		
+		/*var searchNode = new AMap.Autocomplete({
+			input: searchIpt
+		});
+		var placeSearch = new AMap.PlaceSearch({
+			map: map
+		});
+		AMap.event.addListener(searchNode, 'select', function(e){
+			
+			placeSearch.search(e.poi.name)
+		});
+		*/
+
+		// btn.onclick = function(){
+		// 	AMap.service(['AMap.PlaceSearch'], function(){
+		// 	new AMap.PlaceSearch({
+		// 		pageIndex: 1,
+		// 		pageSize: 5,
+		// 		city: '010',
+		// 		cityLimit: true,
+		// 		map: map,
+		// 		panel: 'setNode'
+		// 	}).search(searchIpt.value);
+		// })
+		// }
+		
+
+		/*AMap.plugin('AMap.Autocomplete', function(){
+			inputVal.oninput = function(){
+				list.innerHTML = '';
+				if(this.value == ''){
+                   return;
+                }
+				new AMap.Autocomplete().search(this.value, function(status, data){
+					// console.log(data.tips)
+					for(var i = 0;i < data.tips.length;i++){
+                        var oLi = document.createElement('li');
+                        oLi.innerHTML = data.tips[i].name;
+                        oLi.lng = data.tips[i].location.lng; //经度
+                        oLi.lat = data.tips[i].location.lat; //纬度
+                        list.appendChild(oLi);
+                        oLi.onclick = function(){
+                           map.setCenter([this.lng,this.lat]);
+                        };
+                    }
+				})
+			}
+		})*/
+		/*btn.onclick = function(){
+			map.setZoom(inputValue.value)
+			map.setCenter([inputval1.value, inputval2.value])
+		}
+
+		map.on('moveend', function(){
+			console.log(map.getZoom());
+			console.log(map.getCenter().toString());
+			map.getCity(function(info){
+			console.log(info)
+		})
+		})
+		map.on('click', function(e){
+			console.log(e.lnglat.lng, e.lnglat.lat)
+		})
+		*/
+	</script>
+</body>
+</html>
